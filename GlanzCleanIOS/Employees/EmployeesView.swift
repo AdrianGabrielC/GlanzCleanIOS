@@ -60,6 +60,8 @@ struct EmployeesView: View {
                     ForEach(employeeManager.employees) { employee in
                         NavigationLink {
                             EmployeeWorkDetailsView(employeeID: employee.id ?? UUID())
+                                .environmentObject(toastManager)
+                                .environmentObject(employeeManager)
                         }label: {
                             HStack {
                                 Image("ProfileImg")
@@ -71,10 +73,10 @@ struct EmployeesView: View {
                                         .font(.custom("Urbanist-Bold", size: 16))
                                         .foregroundColor(.white)
                                     HStack(spacing: 3){
-                                        Circle().fill(employee.status == "active" ? .green : .red).frame(width: 10)
-                                        Text("\(employee.status == "active" ? "Active" : "Inactive")")
+                                        Circle().fill(employee.status?.lowercased() == "active" ? .green : .red).frame(width: 10)
+                                        Text("\(employee.status?.lowercased() == "active" ? "Active" : "Inactive")")
                                             .font(.custom("Urbanist-Bold", size: 12))
-                                            .foregroundColor(employee.status == "active" ? .green : .red)
+                                            .foregroundColor(employee.status?.lowercased() == "active" ? .green : .red)
                                     }
                                 }
                                 Spacer()

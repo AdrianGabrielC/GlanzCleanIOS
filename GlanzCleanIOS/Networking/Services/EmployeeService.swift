@@ -14,12 +14,12 @@ class EmployeeService: ObservableObject {
     
     private init() {}
     
-    func getEmployees(completion: @escaping (_ employees: [GET.EmployeeSummary]?, _ response: RequestResponse) -> Void) {
+    func getEmployees(completion: @escaping (_ employees: [GET.Employee]?, _ response: RequestResponse) -> Void) {
         let url = "https://glanzclean.azurewebsites.net/api/employees"
         
         AF.request(url, method: .get)
                .validate()
-               .responseDecodable(of: [GET.EmployeeSummary].self) { response in
+               .responseDecodable(of: [GET.Employee].self) { response in
                    print("Url: \(url)")
                    print("Method: GET")
                    switch response.result {
@@ -40,6 +40,26 @@ class EmployeeService: ObservableObject {
         AF.request(url, method: .get)
                .validate()
                .responseDecodable(of: GET.Employee.self) { response in
+                   print("Url: \(url)")
+                   print("Method: GET")
+                   switch response.result {
+                   case .success(let employee):
+                       print("Result: \(employee)")
+                       completion(employee, RequestResponse(status: .success, message: ""))
+                   case .failure(let error):
+                       // If the request fails, pass the error to the completion handler.
+                       print("Result: Error \(error)")
+                       completion(nil, RequestResponse(status: .failure, message:"Failed to retrieve employee details!"))
+                   }
+               }
+    }
+    
+    func getEmployeeWithWork(id: UUID, completion: @escaping (_ employees: GET.EmployeeWithWork?, _ response: RequestResponse) -> Void) {
+        let url = "https://glanzclean.azurewebsites.net/api/employeesWithWork/\(id)"
+        
+        AF.request(url, method: .get)
+               .validate()
+               .responseDecodable(of: GET.EmployeeWithWork.self) { response in
                    print("Url: \(url)")
                    print("Method: GET")
                    switch response.result {

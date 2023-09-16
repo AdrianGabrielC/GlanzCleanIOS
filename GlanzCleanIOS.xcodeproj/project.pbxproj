@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A1A4E3A2AB5EF78008222BC /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A4E392AB5EF78008222BC /* Test.swift */; };
 		3A2E82A62A8A93EE0004D26F /* GlanzCleanIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E82A52A8A93EE0004D26F /* GlanzCleanIOSApp.swift */; };
 		3A2E82A82A8A93EE0004D26F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E82A72A8A93EE0004D26F /* ContentView.swift */; };
 		3A2E82AA2A8A93EF0004D26F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A2E82A92A8A93EF0004D26F /* Assets.xcassets */; };
@@ -45,6 +46,8 @@
 		3A2E830B2A8B74F20004D26F /* WorkDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E830A2A8B74F20004D26F /* WorkDetailsView.swift */; };
 		3A2E830D2A8B79910004D26F /* EmployeePersonalDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E830C2A8B79910004D26F /* EmployeePersonalDetailsView.swift */; };
 		3A2E830F2A8B799D0004D26F /* EmployeeWorkDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E830E2A8B799D0004D26F /* EmployeeWorkDetailsView.swift */; };
+		3ACD4DCB2AAEEDDC00DCF0B6 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD4DCA2AAEEDDC00DCF0B6 /* DateUtil.swift */; };
+		3ACD4DCD2AAEEF0200DCF0B6 /* NewInvoiceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD4DCC2AAEEF0200DCF0B6 /* NewInvoiceDetailsView.swift */; };
 		3ACD58F22A9F0C2F000B2AF4 /* EmployeeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD58F12A9F0C2F000B2AF4 /* EmployeeService.swift */; };
 		3ACD58F52A9F12B6000B2AF4 /* EmployeeDetailsWorkListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD58F42A9F12B6000B2AF4 /* EmployeeDetailsWorkListComponent.swift */; };
 		3ACE34E82A9B264A0075A7BC /* AddWorkForCustomerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACE34E72A9B264A0075A7BC /* AddWorkForCustomerView.swift */; };
@@ -76,6 +79,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A1A4E392AB5EF78008222BC /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		3A2E82A22A8A93EE0004D26F /* GlanzCleanIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlanzCleanIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A2E82A52A8A93EE0004D26F /* GlanzCleanIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlanzCleanIOSApp.swift; sourceTree = "<group>"; };
 		3A2E82A72A8A93EE0004D26F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 		3A2E830A2A8B74F20004D26F /* WorkDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDetailsView.swift; sourceTree = "<group>"; };
 		3A2E830C2A8B79910004D26F /* EmployeePersonalDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeePersonalDetailsView.swift; sourceTree = "<group>"; };
 		3A2E830E2A8B799D0004D26F /* EmployeeWorkDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeWorkDetailsView.swift; sourceTree = "<group>"; };
+		3ACD4DCA2AAEEDDC00DCF0B6 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		3ACD4DCC2AAEEF0200DCF0B6 /* NewInvoiceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewInvoiceDetailsView.swift; sourceTree = "<group>"; };
 		3ACD58F12A9F0C2F000B2AF4 /* EmployeeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeService.swift; sourceTree = "<group>"; };
 		3ACD58F42A9F12B6000B2AF4 /* EmployeeDetailsWorkListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeDetailsWorkListComponent.swift; sourceTree = "<group>"; };
 		3ACE34E72A9B264A0075A7BC /* AddWorkForCustomerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkForCustomerView.swift; sourceTree = "<group>"; };
@@ -190,6 +196,7 @@
 				3A2E82A72A8A93EE0004D26F /* ContentView.swift */,
 				3A2E82A92A8A93EF0004D26F /* Assets.xcassets */,
 				3A2E82AB2A8A93EF0004D26F /* Preview Content */,
+				3A1A4E392AB5EF78008222BC /* Test.swift */,
 			);
 			path = GlanzCleanIOS;
 			sourceTree = "<group>";
@@ -313,6 +320,7 @@
 				3A2E82FE2A8B684D0004D26F /* InvoiceView.swift */,
 				3A2E83002A8B68620004D26F /* InvoiceAddView.swift */,
 				3A2E83022A8B68870004D26F /* InvoiceDetailsView.swift */,
+				3ACD4DCC2AAEEF0200DCF0B6 /* NewInvoiceDetailsView.swift */,
 			);
 			path = Invoices;
 			sourceTree = "<group>";
@@ -332,6 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				3A2E82F02A8B50730004D26F /* ToastManager.swift */,
+				3ACD4DCA2AAEEDDC00DCF0B6 /* DateUtil.swift */,
 			);
 			path = Singletons;
 			sourceTree = "<group>";
@@ -522,6 +531,7 @@
 				3A2E82D72A8AA73F0004D26F /* RegisterStepOne.swift in Sources */,
 				3AD433852A9141C500C25BCC /* EmployeeWorkModels.swift in Sources */,
 				3AD433812A91416B00C25BCC /* Post.swift in Sources */,
+				3A1A4E3A2AB5EF78008222BC /* Test.swift in Sources */,
 				3AD4339A2A922FB500C25BCC /* CustomerDetailsView.swift in Sources */,
 				3A2E83092A8B6DFA0004D26F /* EmployeeManager.swift in Sources */,
 				3A2E82F72A8B545A0004D26F /* DateFieldComponent.swift in Sources */,
@@ -533,6 +543,7 @@
 				3A2E82A62A8A93EE0004D26F /* GlanzCleanIOSApp.swift in Sources */,
 				3A2E82EB2A8B4F480004D26F /* CalendarMonthComponent.swift in Sources */,
 				3AD4337F2A91416400C25BCC /* Get.swift in Sources */,
+				3ACD4DCD2AAEEF0200DCF0B6 /* NewInvoiceDetailsView.swift in Sources */,
 				3AD433872A91420C00C25BCC /* InvoiceModels.swift in Sources */,
 				3A2E82DA2A8AAB450004D26F /* RegisterStepTwo.swift in Sources */,
 				3AD2ABCA2A96891F00DB8416 /* CustomerLocationsComponent.swift in Sources */,
@@ -552,6 +563,7 @@
 				3A2E82DC2A8AAD5F0004D26F /* RegisterManager.swift in Sources */,
 				3AD4338B2A9142AF00C25BCC /* ServiceModels.swift in Sources */,
 				3A2E82F92A8B54E30004D26F /* CustomSearchBar.swift in Sources */,
+				3ACD4DCB2AAEEDDC00DCF0B6 /* DateUtil.swift in Sources */,
 				3A2E82CB2A8AA1040004D26F /* BlackButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,8 +17,8 @@ struct AddWorkForCustomerView: View {
     @State var showEmployees = false
     @State var isLoading = false
     var customerId: UUID
-    @State var employees: [GET.EmployeeSummary] = []
-    @State var selectedEmployees: [GET.EmployeeSummary] = []
+    @State var employees: [GET.Employee] = []
+    @State var selectedEmployees: [GET.Employee] = []
     @State var searchText = ""
     
     struct TempObj: Identifiable {

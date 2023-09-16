@@ -14,23 +14,18 @@ struct SearchClientModal: View {
 }
 
 struct InvoiceAddView: View {
-    @State var client = ""
-    @State var showAddClient = false
-    @State var showSearchClient = false
-    @State var showTypeOfWork = false
-    @State var date: Date = Date()
-    var colors = ["Red", "Green", "Blue", "Tartan"]
-    @State private var selectedColor = "Red"
-    @State private var notes = ""
-    @State var hours = 1
-    @State var money = 0
-    @State var pausal = false
-    private var numberFormatter = NumberFormatter()
-    init() {
-        numberFormatter.numberStyle = .currency
-        numberFormatter.maximumFractionDigits = 2
-    }
+    @EnvironmentObject var toastManager: ToastManager
+    @Environment(\.presentationMode) var presentationMode
+    @State var existingWork:Int = 1
+    @State var work: [GET.WorkSummary] = []
     
+    func getDoubleFromDecimal(value: Decimal?) -> Double {
+        if let val = value {
+            return NSDecimalNumber(decimal: val).doubleValue
+        }
+        return 0.0
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -39,115 +34,95 @@ struct InvoiceAddView: View {
                     .scaledToFit()
                     .frame(height: 200)
                     .padding(.bottom, 40)
-                Group {
-                    Text("CLIENT")
-                        .font(.callout)
-                        .foregroundColor(Color(red: 115/255, green: 115/255, blue: 118/255))
-                    Button {
-                        showTypeOfWork.toggle()
-                    } label: {
-                        Text("Select client").foregroundColor(.white)
-                        Spacer()
-                        Text("Ninja Clean")
-                        Image(systemName: "chevron.right")
-
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: 30)
-                    .foregroundColor(.white)
-                    .padding(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color(red: 115/255, green: 115/255, blue: 118/255), lineWidth: 1)
-                    )
-                    .sheet(isPresented: $showTypeOfWork) {
-                        SearchClientModal()
-                            .presentationDetents([.medium])
-                    }
-                    DatePicker("Date", selection: $date, displayedComponents: .date)
-                        .frame(maxWidth: .infinity, maxHeight: 30)
-                        .padding(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(red: 115/255, green: 115/255, blue: 118/255), lineWidth: 1)
-                        )
-                    DatePicker("Due Date", selection: $date, displayedComponents: .date)
-                        .frame(maxWidth: .infinity, maxHeight: 30)
-                        .padding(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(red: 115/255, green: 115/255, blue: 118/255), lineWidth: 1)
-                        )
-                    .padding(.bottom, 40)
+                    .padding(.top)
+             
+                Picker("", selection: $existingWork) {
+                    Text("Existing work").tag(1)
+                    Text("New work").tag(0)
                 }
-                Group {
-                    Text("WORK DETAILS")
-                        .font(.callout)
-                        .foregroundColor(Color(red: 115/255, green: 115/255, blue: 118/255))
-                    Button {
-                        showTypeOfWork.toggle()
-                    } label: {
-                        Text("Select type of work").foregroundColor(.white)
-                        Spacer()
-                        Text("General Cleaning")
-                        Image(systemName: "chevron.right")
-
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(.bottom)
+                
+                if existingWork == 1 {
+                    ScrollView {
+                        if work.isEmpty {
+                            Image("NoDataImg")
+                                .resizable()
+                                .scaledToFit()
+                                .padding()
+                            HStack{
+                                Spacer()
+                                Text("No work found!").font(.custom("Urbanist-Bold", size: 24)).foregroundColor(.gray).padding()
+                                Spacer()
+                            }
+                        }
+                        else {
+                            ForEach(work) { work in
+                                NavigationLink {
+                                    NewInvoiceDetailsView().environmentObject(toastManager)
+                                } label: {
+                                    HStack {
+                                        Image(work.workStatus?.lowercased() == "done" ? "WorkDone" : work.workStatus?.lowercased() == "canceled" ? "WorkCancelled" : work.workStatus?.lowercased() == "booked" ? "WorkBooked" : work.workStatus?.lowercased() == "in progress" ? "WorkInProgressV2" : "")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(maxWidth: 50)
+                                        
+                                        // STTAUS AND DATE
+                                        VStack(alignment: .leading, spacing: 10) {
+                                            Text(work.workStatus ?? "").foregroundColor(work.workStatus?.lowercased() == "done" ? Color(red: 0/255, green: 191/255, blue: 120/255) : work.workStatus == "Canceled" ? Color(red: 245/255, green: 8/255, blue: 92/255) : work.workStatus == "In Progress" ? Color(red: 82/255, green: 109/255, blue: 254/255) : work.workStatus == "Booked" ?  Color(red: 193/255, green: 204/255, blue: 206/255) : .white)
+                                            Text("\(DateUtil.shared.getPrettyDateString(work.date ?? "") ?? "")").font(.custom("Urbanist-Bold", size: 14)).foregroundColor(.gray)
+                                        }
+                                        
+                                        // LOCATION AND SERVICE
+                                        Spacer()
+                                        VStack(alignment: .center, spacing: 10) {
+                                            Text(work.companyName ??  "")
+                                            Text(work.serviceName ?? "")
+                                        }.foregroundColor(.gray)
+                                        
+                                        // INCOME AND ACCEPTED
+                                        Spacer()
+                                        VStack(alignment: .trailing, spacing: 10) {
+                                            Text("€ \(getDoubleFromDecimal(value: work.totalIncome), specifier: "%.2f")").foregroundColor(work.workStatus?.lowercased() == "done" ? Color(red: 0/255, green: 191/255, blue: 120/255) : work.workStatus == "Canceled" ? Color(red: 245/255, green: 8/255, blue: 92/255) : work.workStatus == "In Progress" ? Color(red: 82/255, green: 109/255, blue: 254/255) : work.workStatus == "Booked" ?  Color(red: 193/255, green: 204/255, blue: 206/255) : .white)
+                                            if work.accepted ?? true {
+                                                Image(systemName: "checkmark").foregroundColor(.green).bold()
+                                            }
+                                            else {
+                                                Image(systemName: "multiply").foregroundColor(.red).bold()
+                                            }
+                                        }
+                                    }
+                                    .frame(height: 50)
+                                    .fontWeight(.semibold)
+                                    .font(.custom("Urbanist-Bold", size: 14))
+                                    .padding(.vertical,5)
+                                }
+                                Divider()
+                            }
+                        }
+                        
                     }
-                    .frame(maxWidth: .infinity, maxHeight: 30)
-                    .foregroundColor(.white)
-                    .padding(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color(red: 115/255, green: 115/255, blue: 118/255), lineWidth: 1)
-                    )
-                    .sheet(isPresented: $showTypeOfWork) {
-                        SearchClientModal()
-                            .presentationDetents([.medium])
-                    }
-                    DatePicker("Date", selection: $date, displayedComponents: .date)
-                        .frame(maxWidth: .infinity, maxHeight: 30)
-                        .padding(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(red: 115/255, green: 115/255, blue: 118/255), lineWidth: 1)
-                        )
-                    Stepper("\(hours) hours", value: $hours, in: 1...8)
-                        .frame(maxWidth: .infinity, maxHeight: 30)
-                        .padding(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(red: 115/255, green: 115/255, blue: 118/255), lineWidth: 1)
-                        )
-                    HStack {
-                        Image(systemName: "banknote")
-                        Text("Total")
-                        Spacer()
-                        TextField("$0.00", value: $money, formatter: numberFormatter)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .keyboardType(.numberPad)
-                            .frame(width: 80)
-                            .textFieldStyle(.roundedBorder)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: 30)
-                    .padding(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color(red: 115/255, green: 115/255, blue: 118/255), lineWidth: 1)
-                    )
-                    .padding(.bottom, 40)
+                    .listStyle(.plain)
                 }
-                Text("NOTES")
-                    .font(.callout)
-                    .foregroundColor(Color(red: 115/255, green: 115/255, blue: 118/255))
-                TextEditor(text: $notes).frame(minHeight: 200)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color(red: 115/255, green: 115/255, blue: 118/255), lineWidth: 1)
-                    )
             
             }.padding(.horizontal)
         }
-        .navigationTitle("Add Invoice")
-        .navigationBarTitleDisplayMode(.inline)
+        .task {
+            WorkService.shared.getWork(year: 2023, month: nil, day: nil) { work, response in
+                if let work = work {
+                    self.work = work
+                }
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button {
+            presentationMode.wrappedValue.dismiss()
+        }label: {
+            HStack {
+                Image(systemName: "arrow.left.circle.fill").font(.title)
+                Text("Add invoice").font(.custom("Urbanist-Bold", size: 24))
+            }.foregroundColor(Color("MainYellow"))
+        })
     }
 }
 

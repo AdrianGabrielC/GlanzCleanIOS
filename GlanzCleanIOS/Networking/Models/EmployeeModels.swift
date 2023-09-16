@@ -8,7 +8,7 @@
 import Foundation
 
 extension GET {
-    struct Employee: Decodable {
+    struct Employee: Decodable, Identifiable {
         let id: UUID?
         let firstName: String?
         let lastName: String?
@@ -16,25 +16,22 @@ extension GET {
         let email: String?
         let phoneNumber: String?
     }
-
-    struct EmployeeSummary: Decodable, Identifiable{
-        let id: UUID?
-        let firstName: String?
-        let lastName: String?
-        let status: String?
-    }
     
     struct EmployeeWithWork: Decodable, Identifiable {
         let id: UUID?
         let firstName: String?
         let lastName: String?
         let status: String?
+        let email: String?
+        let phoneNumber: String?
         let work: [WorkItem]?
         
         struct WorkItem: Decodable, Identifiable {
             let id: UUID?
             let date: String?
-            let locationName: String?
+            let startDateTimeUtc: String?
+            let hoursWorked: Decimal?
+            let companyName: String?
             let serviceName: String?
             let totalIncome: Decimal?
             let workStatus: String?

@@ -440,7 +440,7 @@ struct AddWorkView: View {
     struct EmployeesList: View {
         @EnvironmentObject var formManager: CalendarManager
         @State var searchText = ""
-        @State var employees: [GET.EmployeeSummary] = []
+        @State var employees: [GET.Employee] = []
         @Binding var isLoading: Bool
         
         var body: some View {

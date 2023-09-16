@@ -166,8 +166,12 @@ class CalendarManager: ObservableObject {
     @Published var hoursWorked: Int = 0
     
     // INCOME
-    @Published var pricePerHour: Double = 0
-    @Published var isPricePerHourValid = false
+    @Published var pricePerHour: Double = 0 {
+        didSet {
+            total = pricePerHour * Double(hoursWorked)
+        }
+    }
+    @Published var isPricePerHourValid = true
     @Published var total: Double = 0
     @Published var isTotalValid = false
     var pricePerHourPrompt = "Income cannot be negative!"
@@ -177,7 +181,7 @@ class CalendarManager: ObservableObject {
     @Published var selectedCustomer: GET.CompanyShortStats?
     @Published var selectedLocation: GET.CompanyWithLocations.Location?
     @Published var selectedService: GET.Service?
-    @Published var selectedEmployees: [GET.EmployeeSummary] = []
+    @Published var selectedEmployees: [GET.Employee] = []
     
 
 
@@ -194,7 +198,7 @@ class CalendarManager: ObservableObject {
                              workBreak: Decimal(workBreak),
                              pricePerHour: Decimal(pricePerHour),
                              accepted: true,
-                             workStatus: "done",
+                             workStatus: "Done",
                              employeeIDs: employeeIds)
         WorkService.shared.postWork(parameters: work) { response in
             if response.status == .success {

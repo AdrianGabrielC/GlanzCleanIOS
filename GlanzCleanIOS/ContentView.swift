@@ -23,7 +23,7 @@ struct ContentView: View {
                     Text("Calendar")
                 }
                 NavigationStack {
-                    EmployeesView()
+                    EmployeesView().environmentObject(toastManager)
                 }
                 .tabItem {
                     Image(systemName: "person.3.fill")
@@ -38,7 +38,7 @@ struct ContentView: View {
                     Text("Customers")
                 }
                 NavigationStack {
-                    InvoiceView()
+                    InvoiceView().environmentObject(toastManager)
                 }
                 .tabItem {
                     Image(systemName: "newspaper.fill")

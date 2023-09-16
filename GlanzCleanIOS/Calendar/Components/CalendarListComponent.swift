@@ -40,7 +40,7 @@ struct CalendarListComponent: View {
                             
                             // STTAUS AND DATE
                             VStack(alignment: .leading, spacing: 10) {
-                                Text(work.workStatus ?? "").foregroundColor(work.workStatus == "Done" ? Color(red: 0/255, green: 191/255, blue: 120/255) : work.workStatus == "Canceled" ? Color(red: 245/255, green: 8/255, blue: 92/255) : work.workStatus == "In Progress" ? Color(red: 82/255, green: 109/255, blue: 254/255) : work.workStatus == "Booked" ?  Color(red: 193/255, green: 204/255, blue: 206/255) : .white)
+                                Text(work.workStatus ?? "").foregroundColor(work.workStatus?.lowercased() == "done" ? Color(red: 0/255, green: 191/255, blue: 120/255) : work.workStatus == "Canceled" ? Color(red: 245/255, green: 8/255, blue: 92/255) : work.workStatus == "In Progress" ? Color(red: 82/255, green: 109/255, blue: 254/255) : work.workStatus == "Booked" ?  Color(red: 193/255, green: 204/255, blue: 206/255) : .white)
                                 Text("\(calendarManager.getPrettyDateString(work.date ?? "") ?? "")").font(.custom("Urbanist-Bold", size: 14)).foregroundColor(.gray)
                             }
                             
@@ -54,7 +54,7 @@ struct CalendarListComponent: View {
                             // INCOME AND ACCEPTED
                             Spacer()
                             VStack(alignment: .trailing, spacing: 10) {
-                                Text("€ \(calendarManager.getDoubleFromDecimal(value: work.totalIncome), specifier: "%.2f")").foregroundColor(work.workStatus == "Done" ? Color(red: 0/255, green: 191/255, blue: 120/255) : work.workStatus == "Canceled" ? Color(red: 245/255, green: 8/255, blue: 92/255) : work.workStatus == "In Progress" ? Color(red: 82/255, green: 109/255, blue: 254/255) : work.workStatus == "Booked" ?  Color(red: 193/255, green: 204/255, blue: 206/255) : .white)
+                                Text("€ \(calendarManager.getDoubleFromDecimal(value: work.totalIncome), specifier: "%.2f")").foregroundColor(work.workStatus?.lowercased() == "done" ? Color(red: 0/255, green: 191/255, blue: 120/255) : work.workStatus == "Canceled" ? Color(red: 245/255, green: 8/255, blue: 92/255) : work.workStatus == "In Progress" ? Color(red: 82/255, green: 109/255, blue: 254/255) : work.workStatus == "Booked" ?  Color(red: 193/255, green: 204/255, blue: 206/255) : .white)
                                 if work.accepted ?? true {
                                     Image(systemName: "checkmark").foregroundColor(.green).bold()
                                 }

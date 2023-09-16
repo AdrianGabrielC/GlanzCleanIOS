@@ -211,7 +211,7 @@ extension CustomerManager {
         var monthName: String {
             let formatter = DateFormatter()
             formatter.dateFormat = "MMMM"
-            return formatter.string(from: DateComponents(month: self.rawValue).date ?? Date())
+            return formatter.string(from: Calendar.current.date(from: DateComponents(year: 2023, month: self.rawValue, day: 1)) ?? Date())
         }
     }
     

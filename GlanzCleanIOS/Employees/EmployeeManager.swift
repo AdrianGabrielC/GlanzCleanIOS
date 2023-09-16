@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class EmployeeManager: ObservableObject {
-    @Published var employees: [GET.EmployeeSummary] = []
+    @Published var employees: [GET.Employee] = []
     @Published var employee: GET.Employee?
     @Published var employeeWithWork: GET.EmployeeWithWork?
     @Published var booleanMonthArr = Array(repeating: false, count: Month.allCases.count) // Used to display months in SwiftUI CustomerDetailsView
@@ -49,11 +49,44 @@ class EmployeeManager: ObservableObject {
         }
     }
     
+    func getEmployeeWithWork(id: UUID, completion: @escaping (_ employee: GET.EmployeeWithWork?, _ response: RequestResponse) -> Void) {
+        EmployeeService.shared.getEmployeeWithWork(id: id) { employees, response in
+            completion(employees, response)
+        }
+    }
+    
     func getDoubleFromDecimal(value: Decimal?) -> Double {
         if let val = value {
             return NSDecimalNumber(decimal: val).doubleValue
         }
         return 0.0
+    }
+    
+    func getPrettyDateString(_ inputDateStr: String) -> String? {
+        let dateFormatterInput = DateFormatter()
+        dateFormatterInput.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S"
+        
+        let dateFormatterOutput = DateFormatter()
+        dateFormatterOutput.dateFormat = "dd MMM yyyy"
+        
+        if let date = dateFormatterInput.date(from: inputDateStr) {
+            return dateFormatterOutput.string(from: date)
+        }
+        
+        return nil // Return nil if the input string is not in the expected format
+    }
+    
+    func getMonthIntFromDateString(_ dateString: String) -> Int? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S"
+
+        if let date = dateFormatter.date(from: dateString) {
+            let calendar = Calendar.current
+            let month = calendar.component(.month, from: date)
+            return month
+        } else {
+            return nil // Parsing failed
+        }
     }
 }
 

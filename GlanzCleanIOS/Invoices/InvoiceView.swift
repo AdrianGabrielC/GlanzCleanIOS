@@ -18,6 +18,7 @@ struct InvoiceSectionHeader: View {
 }
 
 struct InvoiceView: View {
+    @EnvironmentObject var toastManager: ToastManager
     @State var searchText = ""
     @State var date = Date()
     @State var pause = 0
@@ -38,7 +39,7 @@ struct InvoiceView: View {
             }
             HStack {
                 CustomSearchBar(text: $searchText)
-                NavigationLink(destination: InvoiceAddView()) {
+                NavigationLink(destination: InvoiceAddView().environmentObject(toastManager)) {
                     Image(systemName: "plus")
                         .font(.title2)
                         .frame(width: 25, height: 25)
@@ -77,26 +78,28 @@ struct InvoiceView: View {
                                 Text("OLA Gebaudereingung")
                                     .frame(width: 50, alignment: .center)
                                     .font(.custom("Urbanist-Regular", size: 12))
+                                Spacer()
                                 Text("26.04.23")
                                     .frame(width: 50, alignment: .center)
                                     .font(.custom("Urbanist-Regular", size: 12))
+                                Spacer()
                                 Text("666,00€")
                                     .frame(width: 50, alignment: .trailing)
                                     .font(.custom("Urbanist-Regular", size: 12))
                                     .foregroundColor(.green)
                                     .bold()
-                                Text("Due")
-                                    .frame(width: 40, alignment: .center)
-                                    .background(.gray)
-                                    .cornerRadius(12)
-                                    .foregroundColor(.black)
-                                    .bold()
-                                Text("Filed")
-                                    .frame(width: 40, alignment: .center)
-                                    .background(.green)
-                                    .cornerRadius(12)
-                                    .foregroundColor(.black)
-                                    .bold()
+//                                Text("Due")
+//                                    .frame(width: 40, alignment: .center)
+//                                    .background(.gray)
+//                                    .cornerRadius(12)
+//                                    .foregroundColor(.black)
+//                                    .bold()
+//                                Text("Filed")
+//                                    .frame(width: 40, alignment: .center)
+//                                    .background(.green)
+//                                    .cornerRadius(12)
+//                                    .foregroundColor(.black)
+//                                    .bold()
                             }
                             //.font(.custom("Urbanist-Bold", size: 10))
                         }

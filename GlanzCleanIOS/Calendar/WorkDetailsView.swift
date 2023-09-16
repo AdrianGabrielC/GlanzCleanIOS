@@ -23,7 +23,7 @@ struct WorkDetailsView: View {
             ScrollView(showsIndicators: false) {
                 VStack {
                     HStack {
-                        Image(object?.workStatus == "Done" ? "WorkDone" : object?.workStatus == "Canceled" ? "WorkCancelled" : object?.workStatus == "Booked" ? "WorkBooked" : object?.workStatus == "In Progress" ? "WorkInProgressV2" : "")
+                        Image(object?.workStatus?.lowercased() == "done" ? "WorkDone" : object?.workStatus == "Canceled" ? "WorkCancelled" : object?.workStatus == "Booked" ? "WorkBooked" : object?.workStatus == "In Progress" ? "WorkInProgressV2" : "")
                             .resizable()
                             .scaledToFit()
                             .frame(height: 200)

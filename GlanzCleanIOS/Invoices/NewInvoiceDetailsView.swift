@@ -1,13 +1,14 @@
 //
-//  InvoiceDetailsView.swift
+//  NewInvoiceDetailsView.swift
 //  GlanzCleanIOS
 //
-//  Created by Adrian Gabriel Chiper on 15.08.2023.
+//  Created by Adrian Gabriel Chiper on 11.09.2023.
 //
 
 import SwiftUI
 
-struct InvoiceDetailsView: View {
+struct NewInvoiceDetailsView: View {
+    @EnvironmentObject var toastManager: ToastManager
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
@@ -148,6 +149,22 @@ struct InvoiceDetailsView: View {
                     
                 }.font(.system(size: 11))
 
+                YellowButton(text: "Add invoice") {
+                    presentationMode.wrappedValue.dismiss()
+                    toastManager.showToast(type: .success, message: "Invoice successfully added!")
+//                    isLoading = true
+//                    formManager.postWork { response in
+//                        isLoading = false
+//                        switch response.status {
+//                        case .success:
+//                            dismiss()
+//                            toastManager.showToast(type: .success, message: "Work successfully added!")
+//                        case .failure:
+//                            toastManager.showToast(type: .failure, message: "Failed to add work!")
+//                        }
+//                    }
+                }.padding(.top, 40)
+                    .padding(.horizontal).padding(.bottom)
             }.padding(5)
         }
         .navigationBarBackButtonHidden(true)
@@ -156,14 +173,14 @@ struct InvoiceDetailsView: View {
         }label: {
             HStack {
                 Image(systemName: "arrow.left.circle.fill").font(.title)
-                Text("Invoice details").font(.custom("Urbanist-Bold", size: 24))
+                Text("Invoice summary").font(.custom("Urbanist-Bold", size: 24))
             }.foregroundColor(Color("MainYellow"))
         })
     }
 }
 
-struct InvoiceDetailsView_Previews: PreviewProvider {
+struct NewInvoiceDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        InvoiceDetailsView()
+        NewInvoiceDetailsView()
     }
 }
